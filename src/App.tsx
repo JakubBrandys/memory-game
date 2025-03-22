@@ -1,10 +1,8 @@
-import './styles/main.scss';
+import GamePage from "./pages/GamePage.tsx";
+import './App.scss';
 
-function App() {
-  return (
-    <>
-    </>
-  )
-}
+const App = () => {
+  return <GamePage />;
+};
 
-export default App
+export default App;
