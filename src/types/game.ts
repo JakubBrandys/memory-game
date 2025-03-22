@@ -1,5 +1,7 @@
 export interface TileType {
   id: string;
-  uniqueId: string;
+  pairId: string;
   image: string;
 }
+
+export type Difficulty = 'easy' | 'medium' | 'hard';
