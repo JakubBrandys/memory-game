@@ -6,7 +6,7 @@ import styles from './GamePage.module.scss';
 import DifficultySelector from '../../components/DifficultySelector/DifficultySelector.tsx';
 
 const GamePage = () => {
-  const [difficulty, setDifficulty] = useState<Difficulty>('easy');
+  const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.Easy);
   const { loadTiles } = useGameStore();
 
   useEffect(() => {

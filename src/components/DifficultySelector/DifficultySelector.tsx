@@ -4,10 +4,10 @@ import { clsx } from 'clsx';
 
 interface Props {
   selected: Difficulty;
-  onChange: (difficulty: Difficulty) => void;
+  onChange: (level: Difficulty) => void;
 }
 
-const difficulties: Difficulty[] = ['easy', 'medium', 'hard'];
+const difficulties: Difficulty[] = [Difficulty.Easy, Difficulty.Medium, Difficulty.Hard];
 
 const DifficultySelector = ({ selected, onChange }: Props) => {
   return (

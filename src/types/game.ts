@@ -4,4 +4,8 @@ export interface TileType {
   image: string;
 }
 
-export type Difficulty = 'easy' | 'medium' | 'hard';
+export enum Difficulty {
+  Easy = 'easy',
+  Medium = 'medium',
+  Hard = 'hard',
+}
