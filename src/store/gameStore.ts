@@ -11,6 +11,12 @@ interface GameState {
   flipTile: (tile: TileType) => void;
   checkForMatch: () => void;
   loadTiles: (difficulty: Difficulty) => void;
+  attempts: number;
+  time: number;
+  timerIntervalId: number | null;
+  startTimer: () => void;
+  stopTimer: () => void;
+  resetTimer: () => void;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -18,10 +24,46 @@ export const useGameStore = create<GameState>((set, get) => ({
   revealedTiles: [],
   matchedIds: [],
   boardLocked: false,
+  attempts: 0,
+  time: 0,
+  timerIntervalId: null,
+
+  startTimer: () => {
+    if (get().timerIntervalId !== null) return;
+
+    const id = window.setInterval(() => {
+      set(state => ({ time: state.time + 1 }));
+    }, 1000);
+
+    set({ timerIntervalId: id });
+  },
+
+  stopTimer: () => {
+    const { timerIntervalId } = get();
+    if (timerIntervalId !== null) {
+      clearInterval(timerIntervalId);
+      set({ timerIntervalId: null });
+    }
+  },
+
+  resetTimer: () => {
+    const { stopTimer } = get();
+    stopTimer();
+    set({ time: 0 });
+  },
 
   loadTiles: difficulty => {
     const shuffled = shuffleTiles(allTiles, difficulty);
-    set({ tiles: shuffled, revealedTiles: [], matchedIds: [] });
+    set({
+      tiles: shuffled,
+      revealedTiles: [],
+      matchedIds: [],
+      attempts: 0,
+      time: 0,
+    });
+
+    get().resetTimer();
+    get().startTimer();
   },
 
   flipTile: tile => {
@@ -33,19 +75,22 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
 
   checkForMatch: () => {
-    const { revealedTiles, matchedIds } = get();
+    const { revealedTiles, matchedIds, attempts, tiles, stopTimer } = get();
 
     if (revealedTiles.length === 2) {
       const [first, second] = revealedTiles;
-      if (first.pairId === second.pairId) {
-        set({
-          matchedIds: [...matchedIds, first.pairId],
-          revealedTiles: [],
-        });
-      } else {
-        setTimeout(() => {
-          set({ revealedTiles: [] });
-        }, 500);
+      const isMatch = first.pairId === second.pairId;
+      const updatedMatched = isMatch ? [...matchedIds, first.pairId] : matchedIds;
+
+      set({
+        attempts: attempts + 1,
+        matchedIds: updatedMatched,
+        revealedTiles: [],
+      });
+
+      const totalPairs = tiles.length / 2;
+      if (updatedMatched.length === totalPairs) {
+        stopTimer();
       }
     }
   },
