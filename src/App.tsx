@@ -1,4 +1,4 @@
-import GamePage from "./pages/GamePage.tsx";
+import GamePage from './pages/GamePage/GamePage.tsx';
 import './App.scss';
 
 const App = () => {

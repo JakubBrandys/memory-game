@@ -43,10 +43,50 @@ const mockTiles: TileType[] = [
     uniqueId: 'panda-2',
     image: '/assets/tiles/panda.png',
   },
+
+  {
+    id: 'lion',
+    uniqueId: 'lion-1',
+    image: '/assets/tiles/lion.png',
+  },
+  {
+    id: 'lion',
+    uniqueId: 'lion-2',
+    image: '/assets/tiles/lion.png',
+  },
+  {
+    id: 'horse',
+    uniqueId: 'horse-1',
+    image: '/assets/tiles/horse.png',
+  },
+  {
+    id: 'horse',
+    uniqueId: 'horse-2',
+    image: '/assets/tiles/horse.png',
+  },
+  {
+    id: 'parrot',
+    uniqueId: 'parrot-1',
+    image: '/assets/tiles/parrot.png',
+  },
+  {
+    id: 'parrot',
+    uniqueId: 'parrot-2',
+    image: '/assets/tiles/parrot.png',
+  },
+  {
+    id: 'wolf',
+    uniqueId: 'wolf-1',
+    image: '/assets/tiles/wolf.png',
+  },
+  {
+    id: 'wolf',
+    uniqueId: 'wolf-2',
+    image: '/assets/tiles/wolf.png',
+  },
 ];
 
 const GameBoard = () => {
-
   return (
     <div className={styles.gameBoard}>
       {mockTiles.map(tile => (
